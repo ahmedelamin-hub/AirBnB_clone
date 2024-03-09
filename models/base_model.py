@@ -4,9 +4,9 @@ Module: base_model
 Defines the BaseModel class.
 """
 
-
 import uuid
 from datetime import datetime
+
 
 class BaseModel:
     """
