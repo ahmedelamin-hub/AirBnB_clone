@@ -1,82 +1,54 @@
 #!/usr/bin/python3
-"""Defines the HBnB console."""
+"""Defines the HBNB command interpreter."""
 import cmd
+from models import storage
 from models.base_model import BaseModel
-from uuid import uuid4
-import shlex
-
+from models.user import User
+from models.place import Place
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.review import Review
 
 class HBNBCommand(cmd.Cmd):
-    prompt = "(hbnb) "
+    """HBNB command interpreter."""
+    prompt = '(hbnb) '
+    __classes = {
+        'BaseModel': BaseModel, 'User': User, 'Place': Place,
+        'State': State, 'City': City, 'Amenity': Amenity, 'Review': Review
+    }
 
     def do_quit(self, arg):
-        """Quit command to exit the program"""
+        """Quit command to exit the program."""
         return True
 
     def do_EOF(self, arg):
-        """EOF command to exit the program"""
+        """EOF command to exit the program."""
         return True
 
     def emptyline(self):
-        """An empty line + ENTER shouldn’t execute anything"""
+        """Doesn't execute anything on empty line input."""
         pass
 
-    def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id."""
-        if not arg:
-            print("** class name missing **")
-            return
-        try:
-            new_instance = BaseModel(str(uuid4()))
-            print(new_instance.id)
-            # Here, you should implement saving the instance to a file
-        except Exception as e:
-            print("** class doesn't exist **")
-
-    def do_show(self, arg):
-        """Shows the details of a BaseModel instance based on its id."""
-        args = shlex.split(arg)
-        if len(args) == 0:
-            print("** class name missing **")
-            return
-        if len(args) == 1:
-            print("** instance id missing **")
-            return
-        # Implement logic to show instance based on its id
-
-    def do_destroy(self, arg):
-        """Destroys a BaseModel instance based on its id."""
-        args = shlex.split(arg)
-        if len(args) == 0:
-            print("** class name missing **")
-            return
-        if len(args) == 1:
-            print("** instance id missing **")
-            return
-        # Implement logic to destroy instance based on its id
-
-    def do_all(self, arg):
-        """Prints all string representations of all instances based or not on the class name."""
-        # Implement logic to print all instances or instances of a specific class
-
-    def do_update(self, arg):
-        """Updates an instance based on the class name and id by adding or updating attribute."""
-        args = shlex.split(arg)
-
     def do_create(self, line):
-    args = line.split()
-    if not args:
-        print("** class name missing **")
-        return
-    if args[0] not in ['BaseModel', 'User']:
-        print("** class doesn't exist **")
-        return
-    if args[0] == 'BaseModel':
-        obj = BaseModel()
-    elif args[0] == 'User':
-        obj = User()
-    obj.save()
-    print(obj.id)
+        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id."""
+        # Implementation of create command
+        
+    def do_show(self, line):
+        """Prints the string representation of an instance based on the class name and id."""
+        # Implementation of show command
+        
+    def do_destroy(self, line):
+        """Deletes an instance based on the class name and id (save the change into the JSON file)."""
+        # Implementation of destroy command
+        
+    def do_all(self, line):
+        """Prints all string representation of all instances based or not on the class name."""
+        # Implementation of all command
+        
+    def do_update(self, line):
+        """Updates an instance based on the class name and id by adding or updating attribute."""
+        # Implementation of update command
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
