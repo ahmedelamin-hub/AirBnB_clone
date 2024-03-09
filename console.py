@@ -63,5 +63,20 @@ class HBNBCommand(cmd.Cmd):
         """Updates an instance based on the class name and id by adding or updating attribute."""
         args = shlex.split(arg)
 
+    def do_create(self, line):
+    args = line.split()
+    if not args:
+        print("** class name missing **")
+        return
+    if args[0] not in ['BaseModel', 'User']:
+        print("** class doesn't exist **")
+        return
+    if args[0] == 'BaseModel':
+        obj = BaseModel()
+    elif args[0] == 'User':
+        obj = User()
+    obj.save()
+    print(obj.id)
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
