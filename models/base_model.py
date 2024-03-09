@@ -2,6 +2,7 @@
 """Basemodel function for classes"""
 import uuid
 from datetime import datetime
+from models import storage
 
 
 class BaseModel:
@@ -25,6 +26,8 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
 
+        storage.save()
+
     def __str__(self):
         """Returns the string representation of the BaseModel instance."""
         return "[{}] ({}) {}".format(
@@ -33,6 +36,7 @@ class BaseModel:
     def save(self):
         """Updates the public instance att with the current datetime."""
         self.updated_at = datetime.now()
+        storage.save()
 
     def to_dict(self):
         """Returns a dictionary containing of __dict__ the instance."""
