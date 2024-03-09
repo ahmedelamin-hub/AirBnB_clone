@@ -16,17 +16,16 @@ class BaseModel:
             **kwargs (dict): Key-value pairs of attributes
         """
 
-        if kwargs:
-            for key, value in kwargs.items():
-                if key == '__class__':
-                    continue
-                elif key in ['created_at', 'updated_at']:
-                    value = datetime.fromisoformat(value)
-                setattr(self, key, value)
-        else:
-            self.id = str(uuid4())
+        if not kwargs:
+            self.id = str(uuid.uuid4())
             self.created_at = self.updated_at = datetime.now()
             storage.new(self)
+        else:
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    value = datetime.fromisoformat(value)
+                if key != '__class__':
+                    setattr(self, key, value)
 
     def __str__(self):
         """Returns the string representation of the Base."""
