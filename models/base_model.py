@@ -22,7 +22,7 @@ class BaseModel:
                     continue
                 elif key in ['created_at', 'updated_at']:
                     value = datetime.fromisoformat(value)
-                    setattr(self, key, value)
+                setattr(self, key, value)
 
         else:
             self.id = str(uuid.uuid4())
@@ -35,7 +35,6 @@ class BaseModel:
     def save(self):
         """Updates the updated_at with the current datetime."""
         self.updated_at = datetime.now()
-        storage.save()
 
     def to_dict(self):
         """Returns a dictionary containing all keys/values"""
