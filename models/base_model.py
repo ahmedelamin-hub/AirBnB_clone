@@ -7,6 +7,7 @@ Defines the BaseModel class.
 import uuid
 from datetime import datetime
 
+
 class BaseModel:
     """
     Defines the BaseModel class.
@@ -36,7 +37,7 @@ class BaseModel:
 
     def to_dict(self):
         """
-        Returns a dictionary containing all keys/values of __dict__ of the instance.
+        Returns a dictionary containing all keys/values of __dict__
         """
         obj_dict = self.__dict__.copy()
         obj_dict['__class__'] = type(self).__name__
