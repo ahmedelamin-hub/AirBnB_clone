@@ -6,6 +6,8 @@ This class serializes instances to a JSON file and deserializes JSON files to in
 
 import json
 from models.base_model import BaseModel
+from models.user import User
+
 
 class FileStorage:
     """

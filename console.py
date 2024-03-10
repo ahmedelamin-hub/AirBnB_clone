@@ -7,11 +7,14 @@ import cmd
 from models import storage
 from models.base_model import BaseModel
 from shlex import split
+from models.user import User
+
 
 class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     __class_dict = {
         'BaseModel': BaseModel,
+        'User': User,
     }
 
     def do_quit(self, arg):
