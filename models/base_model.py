@@ -1,39 +1,62 @@
 #!/usr/bin/python3
-"""class base for functions"""
-import uuid
+"""
+Defines a BaseModel class.
+This class will be the base for all other classes in our project.
+It includes common attributes and methods that can be inherited.
+"""
+
+from uuid import uuid4
 from datetime import datetime
-from models import storage
 
 
 class BaseModel:
+    """
+    Defines the BaseModel class.
+    Attributes:
+        id (str): unique id for each instance.
+        created_at (datetime): the current datetime when an instance is created.
+        updated_at (datetime): the current datetime when an instance is created and
+                               it will be updated every time the instance is changed.
+    """
+
     def __init__(self, *args, **kwargs):
-        """Initialize a new BaseModel instance."""
+        """
+        Initializes a new instance of the BaseModel class.
+        If kwargs is not empty, it initializes the instance attributes accordingly,
+        converting datetime strings back to datetime objects.
+        Otherwise, it creates a new instance with unique id and current datetime.
+        """
         if kwargs:
             for key, value in kwargs.items():
                 if key == '__class__':
                     continue
-                elif key in ['created_at', 'updated_at']:
-                    setattr(self, key, datetime.fromisoformat(value))
-                else:
-                    setattr(self, key, value)
+                if key in ('created_at', 'updated_at'):
+                    value = datetime.fromisoformat(value)
+                setattr(self, key, value)
         else:
-            self.id = str(uuid.uuid4())
+            self.id = str(uuid4())
             self.created_at = self.updated_at = datetime.now()
-            storage.new(self)  # Register the instance in storage
 
     def __str__(self):
-        """Return a string representation of the instance."""
+        """
+        Returns a string representation of the BaseModel instance.
+        """
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
 
     def save(self):
-        """Update the updated_at attribute and save the instance to the file."""
+        """
+        Updates the updated_at attribute with the current datetime.
+        """
         self.updated_at = datetime.now()
-        storage.save()
 
     def to_dict(self):
-        """Return a dictionary representation of the instance for serialization."""
-        dict_copy = self.__dict__.copy()
-        dict_copy['__class__'] = self.__class__.__name__
-        dict_copy['created_at'] = self.created_at.isoformat()
-        dict_copy['updated_at'] = self.updated_at.isoformat()
-        return dict_copy
+        """
+        Returns a dictionary containing all keys/values of __dict__ of the instance.
+        This dictionary also contains the class name under the key '__class__'.
+        The datetime attributes are converted to strings in ISO format.
+        """
+        dict_rep = self.__dict__.copy()
+        dict_rep['__class__'] = self.__class__.__name__
+        dict_rep['created_at'] = self.created_at.isoformat()
+        dict_rep['updated_at'] = self.updated_at.isoformat()
+        return dict_rep
