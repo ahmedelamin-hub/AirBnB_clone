@@ -27,7 +27,6 @@ class HBNBCommand(cmd.Cmd):
             'Review': Review,
     }
 
-
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
@@ -42,7 +41,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     def do_create(self, arg):
-        """Creates a new instance of BaseModel, saves it (to the JSON file) and prints the id"""
+        """Creates a new instance of BaseModel,json"""
         if not arg:
             print("** class name missing **")
             return
@@ -54,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
         print(instance.id)
 
     def do_show(self, arg):
-        """Prints the string representation of an instance based on the class name and id"""
+        """Prints the string representation of an instance id"""
         args = split(arg)
         if len(args) == 0:
             print("** class name missing **")
@@ -93,7 +92,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
 
     def do_all(self, arg):
-        """Prints all string representation of all instances based or not on the class name"""
+        """Prints all string representation of all instances """
         if arg and arg not in self.__class_dict:
             print("** class doesn't exist **")
             return
@@ -105,7 +104,7 @@ class HBNBCommand(cmd.Cmd):
         print(print_list)
 
     def do_update(self, arg):
-        """Updates an instance based on the class name and id by adding or updating attribute"""
+        """Updates an instance based on the class name attribute"""
         args = split(arg)
         if len(args) == 0:
             print("** class name missing **")
@@ -130,6 +129,6 @@ class HBNBCommand(cmd.Cmd):
         setattr(all_objs[key], args[2], args[3])
         all_objs[key].save()
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-

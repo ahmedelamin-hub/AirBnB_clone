@@ -15,16 +15,16 @@ class BaseModel:
     A base class for other classes to inherit from.
     Attributes:
         id (str): Unique id for each instance.
-        created_at (datetime): The current datetime when an instance is created.
-        updated_at (datetime): The current datetime when an instance is created and
-                               will be updated every time the instance changes.
+        created_at (datetime): The current datetime
+        updated_at (datetime): The current datetime
+                               will be updated
     """
 
     def __init__(self, *args, **kwargs):
         """
         Initializes a new instance of BaseModel.
-        If kwargs is not empty, initializes the instance attributes accordingly.
-        Otherwise, creates a new instance with unique id and current datetime.
+        If kwargs is not empty, initializes the instance
+        Otherwise, creates a new instance with unique id
         """
         if kwargs:
             for key, value in kwargs.items():
@@ -46,7 +46,7 @@ class BaseModel:
 
     def save(self):
         """
-        Updates the updated_at attribute with the current datetime and saves the
+        Updates the updated_at attribute with the current datetime
         instance to the JSON file.
         """
         self.updated_at = datetime.now()
@@ -54,8 +54,8 @@ class BaseModel:
 
     def to_dict(self):
         """
-        Returns a dictionary containing all keys/values of __dict__ of the instance.
-        This dictionary also contains the class name under the key '__class__'.
+        Returns a dictionary containing all keys/values of __dict_
+        This dictionary also contains the class name under the key
         """
         dict_rep = self.__dict__.copy()
         dict_rep['__class__'] = self.__class__.__name__
