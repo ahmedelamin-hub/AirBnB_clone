@@ -1,0 +1,23 @@
+.places {
+    margin-top: 30px;
+}
+
+.places > h1 {
+    font-size: 30px;
+    margin: 0;
+    padding: 0 20px; /* This aligns the title to the left with padding */
+}
+
+article {
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #FF5A5F;
+    border-radius: 4px;
+    text-align: center; /* This centers the place names horizontally */
+}
+
+article > h2 {
+    font-size: 30px;
+    margin: 0;
+}
